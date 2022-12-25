@@ -28,7 +28,7 @@ public class Player extends Entity
 		x = 100;
 		y = 100;
 		speed = 4;
-		direction = "up";
+		direction = "down";
 	}
 	
 	public void getPlayerImage() 
