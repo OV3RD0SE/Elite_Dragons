@@ -9,6 +9,7 @@ import java.awt.font.GraphicAttribute;
 import javax.swing.JPanel;
 
 import entity.Player;
+import tiles.TileManager;
 
 public class GamePanel extends JPanel implements Runnable
 {
@@ -18,17 +19,19 @@ public class GamePanel extends JPanel implements Runnable
 	public final int tileSize = originalTileSize * scaleTileSize; // 16*3 = 48x48
 	
 	//This is how many tiles will be displayed on the screen
-	final int maxScreenCol = 16;
-	final int maxScreenRow = 12;
-	final int screenWidth = tileSize * maxScreenCol; //1200
-	final int screenHeight = tileSize * maxScreenRow; //768
+	public final int maxScreenCol = 16;
+	public final int maxScreenRow = 12;
+	public final int screenWidth = tileSize * maxScreenCol; //1200
+	public final int screenHeight = tileSize * maxScreenRow; //768
 	
 	//FPS
 	int FPS = 60;
 	
+	TileManager tileM = new TileManager(this);
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
 	Player player = new Player(this,keyH);
+	
 	
 	//Set Player's default position
 	int playerX = 100;
@@ -53,6 +56,8 @@ public class GamePanel extends JPanel implements Runnable
 	@Override
 	public void run()
 	{
+		
+		//This is so the game runs in 60 FPS
 		double drawInterval = 1000000000/FPS;
 		double delta = 0;
 		long lastTime = System.nanoTime();
@@ -86,6 +91,7 @@ public class GamePanel extends JPanel implements Runnable
 		
 		Graphics2D g2 = (Graphics2D)g; //Changed Graphics to Graphics2D, with Graphics2D you get more functions
 		
+		tileM.draw(g2);
 		player.draw(g2);
 		
 		g2.dispose(); //Its good to save some ram
