@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultBoundedRangeModel;
 
 import main.GamePanel;
 import main.KeyHandler;
@@ -43,6 +44,7 @@ public class Player extends Entity
 			left2 = ImageIO.read(getClass().getResourceAsStream("/player/player_left_2.png"));
 			right1 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_1.png"));
 			right2 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_2.png"));
+			nDefault= ImageIO.read(getClass().getResourceAsStream("/player/player_default.png"));
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -90,6 +92,9 @@ public class Player extends Entity
 				}
 				spriteCounter = 0;
 			}
+		}else
+		{
+			direction = "default";
 		}
 	}
 	
@@ -140,6 +145,9 @@ public class Player extends Entity
 			{
 				image = right2;
 			}
+			break;
+		case "default":
+			image = nDefault;
 			break;
 		}
 		g2.drawImage(image, x, y,gp.tileSize, gp.tileSize, null);
